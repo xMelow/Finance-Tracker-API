@@ -2,6 +2,7 @@ package org.acme.controller;
 
 import java.util.List;
 
+import org.acme.DTO.ExpenseBody;
 import org.acme.domain.Expense;
 import org.acme.service.ExpenseService;
 
@@ -36,7 +37,7 @@ public class ExpenseController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addExpense(MyBody body) {
+    public String addExpense(ExpenseBody body) {
         return expenseService.addExpense(body);
     }
 
