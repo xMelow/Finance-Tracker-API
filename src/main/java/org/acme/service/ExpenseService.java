@@ -2,11 +2,13 @@ package org.acme.service;
 
 import java.util.List;
 
+import org.acme.DTO.ExpenseBody;
 import org.acme.domain.Expense;
 
 public class ExpenseService {
     
     private List<Expense> expenses;
+    private int id;
 
     public ExpenseService() {
 
@@ -20,10 +22,13 @@ public class ExpenseService {
         return expenses.get(id);
     }
 
-    public String addExpense() {
+    public String addExpense(ExpenseBody body) {
         // try catch
         //get body data
-        Expense expense = new Expense(0, 0, null, null, null);
+        
+        Expense expense = new Expense(id, body.getAmount(), body.getCategory(), body.getDescription(), body.getDate());
+        this.id += 1;
+
         expenses.add(expense);
         return "Expense added";
     }
