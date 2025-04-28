@@ -1,21 +1,25 @@
 package org.acme.DTO;
 
 import java.time.LocalDate;
-import java.util.Locale.Category;
 
 public class ExpenseBody {
     
+    private long expenseId;
     private double amount;
-    private Category category;
+    private int categoryId;
     private String description;
     private LocalDate date;
+
+    public long getExpenseId() {
+        return this.expenseId;
+    }
 
     public double getAmount() {
         return this.amount;
     }
 
-    public Category getCategory() {
-        return this.category;
+    public int getCategoryId() {
+        return this.categoryId;
     }
 
     public String getDescription() {
@@ -30,8 +34,8 @@ public class ExpenseBody {
         this.amount = amount;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public void setDescription(String description) {

@@ -17,9 +17,9 @@ public class Expense {
     private Double amount;
 
     @Column(name = "CategoryId")
-    private Integer categoryId;
+    private int categoryId;
 
-    @Column(length = 255)
+    @Column(name = "Description", length = 255)
     private String description;
 
     @Column(name = "Date")
@@ -44,15 +44,20 @@ public class Expense {
 
     public Expense() {}
 
+    public Expense(Double amount, int categoryId, String description, LocalDate date) {
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.date = date;
+    }
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     public Double getAmount() { return amount; }
     public void setAmount(Double amount) { this.amount = amount; }
 
-    public Integer getCategoryId() { return categoryId; }
-    public void setCategoryId(Integer categoryId) { this.categoryId = categoryId; }
+    public int getCategoryId() { return categoryId; }
+    public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }

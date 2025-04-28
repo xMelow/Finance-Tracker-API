@@ -4,42 +4,45 @@ import java.util.List;
 
 import org.acme.DTO.ExpenseBody;
 import org.acme.domain.Entity.Expense;
-
+import org.acme.repository.ExpenseRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class ExpenseService {
     
-    private List<Expense> expenses;
-    private int id;
-
-    public ExpenseService() {
-
-    }
+    @Inject
+    ExpenseRepository expenseRepository;
 
     public List<Expense> getAllExpenses() {
-        return expenses;
+        return expenseRepository.getAll();
     }
 
-    public Expense getExpenseById(int id) {
-        return expenses.get(id);
+    public Expense getExpenseById(long id) {
+        return expenseRepository.findById(id);
     }
 
-    public String addExpense(ExpenseBody body) {
-        // try catch
-        //get body data
-        
-        Expense expense = new Expense(id, body.getAmount(), body.getCategory(), body.getDescription(), body.getDate());
-        this.id += 1;
-
-        expenses.add(expense);
-        return "Expense added";
+    public void addExpense(ExpenseBody body) {
+        Expense expense = new Expense(body.getAmount(), body.getCategoryId(), body.getDescription(), body.getDate());
+        expenseRepository.create(expense);    
     }
 
-    public String removeExpense(int id) {
-        // try catch
-        Expense expense = getExpenseById(id);
-        expenses.remove(expense);
-        return "Expense removed";
+    public void updateExpense(ExpenseBody body) {
+        Expense expense = getExpenseById(body.getExpenseId());
+        Expense updatedExpense = updateExpenseData(expense, body);
+        expenseRepository.update(updatedExpense);
+    }
+
+    private Expense updateExpenseData(Expense expense, ExpenseBody body) {
+        expense.setAmount(body.getAmount());
+        expense.setCategoryId(body.getCategoryId());
+        expense.setDate(body.getDate());
+        expense.setDescription(body.getDescription());
+        return expense;
+    }
+
+
+    public void removeExpense(long id) {
+        expenseRepository.delete(id);
     }
 }
