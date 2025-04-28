@@ -1,41 +1,67 @@
-package org.acme.domain;
+package org.acme.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.Locale.Category;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "Expenses")
 public class Expense {
-    
-    private int id;
-    private double amount;
-    private Category category;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ExpenseId")
+    private Long id;
+
+    @Column(nullable = false)
+    private Double amount;
+
+    @Column(name = "CategoryId")
+    private Integer categoryId;
+
+    @Column(length = 255)
     private String description;
+
+    @Column(name = "Date")
     private LocalDate date;
 
-    public Expense(int id, double amount, Category category, String description, LocalDate date) {
-        this.id = id;
-        this.amount = amount;
-        this.category = category;
-        this.description = description;
-        this.date = date;
+    @Column(name = "CreatedAt", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "UpdatedAt")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public int getId() {
-        return this.id;
+    @PreUpdate
+    public void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public double getAmount() {
-        return this.amount;
-    }
+    // Constructors
+    public Expense() {}
 
-    public Category getCategory() {
-        return this.category;
-    }
+    // Getters and Setters (important!)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getDescription() {
-        return this.description;
-    }
+    public Double getAmount() { return amount; }
+    public void setAmount(Double amount) { this.amount = amount; }
 
-    public LocalDate getDate() {
-        return this.date;
-    }
+    public Integer getCategoryId() { return categoryId; }
+    public void setCategoryId(Integer categoryId) { this.categoryId = categoryId; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
 }

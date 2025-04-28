@@ -5,6 +5,9 @@ import java.util.List;
 import org.acme.DTO.ExpenseBody;
 import org.acme.domain.Expense;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class ExpenseService {
     
     private List<Expense> expenses;

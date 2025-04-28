@@ -26,6 +26,10 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>quarkus-jdbc-mariadb</artifactId>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
