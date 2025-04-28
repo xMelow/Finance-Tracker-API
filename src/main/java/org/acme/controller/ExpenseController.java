@@ -3,7 +3,7 @@ package org.acme.controller;
 import java.util.List;
 
 import org.acme.DTO.ExpenseBody;
-import org.acme.domain.Entity.Expense;
+import org.acme.domain.entity.Expense;
 import org.acme.service.ExpenseService;
 
 import jakarta.inject.Inject;
@@ -11,6 +11,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.PathParam;
@@ -37,13 +38,20 @@ public class ExpenseController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addExpense(ExpenseBody body) {
-        return expenseService.addExpense(body);
+    public void addExpense(ExpenseBody body) {
+        expenseService.addExpense(body);
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateExpense(@PathParam("id") int id, ExpenseBody body) {
+        expenseService.updateExpense(id, body);
     }
 
     @DELETE
     @Path("/{id}")
-    public String removeExpense(@PathParam("id") int id) {
-        return expenseService.removeExpense(id);
+    public void removeExpense(@PathParam("id") int id) {
+        expenseService.removeExpense(id);
     }
 }

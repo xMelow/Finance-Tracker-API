@@ -1,4 +1,4 @@
-package org.acme.domain.Entity;
+package org.acme.domain.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

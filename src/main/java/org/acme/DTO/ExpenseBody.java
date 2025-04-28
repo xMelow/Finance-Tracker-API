@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class ExpenseBody {
     
-    private long expenseId;
+    private int expenseId;
     private double amount;
     private int categoryId;
     private String description;
     private LocalDate date;
 
-    public long getExpenseId() {
+    public int getExpenseId() {
         return this.expenseId;
     }
 

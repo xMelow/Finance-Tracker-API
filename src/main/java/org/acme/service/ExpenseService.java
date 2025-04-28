@@ -3,7 +3,7 @@ package org.acme.service;
 import java.util.List;
 
 import org.acme.DTO.ExpenseBody;
-import org.acme.domain.Entity.Expense;
+import org.acme.domain.entity.Expense;
 import org.acme.repository.ExpenseRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -18,7 +18,7 @@ public class ExpenseService {
         return expenseRepository.getAll();
     }
 
-    public Expense getExpenseById(long id) {
+    public Expense getExpenseById(int id) {
         return expenseRepository.findById(id);
     }
 
@@ -27,10 +27,10 @@ public class ExpenseService {
         expenseRepository.create(expense);    
     }
 
-    public void updateExpense(ExpenseBody body) {
+    public void updateExpense(int id, ExpenseBody body) {
         Expense expense = getExpenseById(body.getExpenseId());
         Expense updatedExpense = updateExpenseData(expense, body);
-        expenseRepository.update(updatedExpense);
+        expenseRepository.update(id, updatedExpense);
     }
 
     private Expense updateExpenseData(Expense expense, ExpenseBody body) {
@@ -42,7 +42,7 @@ public class ExpenseService {
     }
 
 
-    public void removeExpense(long id) {
+    public void removeExpense(int id) {
         expenseRepository.delete(id);
     }
 }
