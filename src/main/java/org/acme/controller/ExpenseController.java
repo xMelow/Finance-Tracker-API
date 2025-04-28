@@ -3,7 +3,7 @@ package org.acme.controller;
 import java.util.List;
 
 import org.acme.DTO.ExpenseBody;
-import org.acme.domain.Expense;
+import org.acme.domain.Entity.Expense;
 import org.acme.service.ExpenseService;
 
 import jakarta.inject.Inject;

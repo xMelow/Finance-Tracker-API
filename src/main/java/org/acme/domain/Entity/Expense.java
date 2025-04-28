@@ -1,4 +1,4 @@
-package org.acme.entity;
+package org.acme.domain.Entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -42,10 +42,9 @@ public class Expense {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // Constructors
     public Expense() {}
 
-    // Getters and Setters (important!)
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -3,7 +3,7 @@ package org.acme.service;
 import java.util.List;
 
 import org.acme.DTO.ExpenseBody;
-import org.acme.domain.Expense;
+import org.acme.domain.Entity.Expense;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
