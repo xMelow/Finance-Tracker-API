@@ -14,6 +14,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 
@@ -38,8 +39,10 @@ public class ExpenseController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addExpense(ExpenseBody body) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addExpense(ExpenseBody body) {
         expenseService.addExpense(body);
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @PUT
