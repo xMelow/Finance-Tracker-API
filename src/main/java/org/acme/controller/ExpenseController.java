@@ -26,13 +26,14 @@ public class ExpenseController {
 
     // add parameter filters
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Expense> getAllExpenses() {
         return expenseService.getAllExpenses();
     }
 
     @GET
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Expense getExpenseById(@PathParam("id") int id) {
         return expenseService.getExpenseById(id);
     }
@@ -48,12 +49,14 @@ public class ExpenseController {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public void updateExpense(@PathParam("id") int id, ExpenseBody body) {
         expenseService.updateExpense(id, body);
     }
 
     @DELETE
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public void removeExpense(@PathParam("id") int id) {
         expenseService.removeExpense(id);
     }

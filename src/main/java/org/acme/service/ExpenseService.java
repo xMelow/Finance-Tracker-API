@@ -28,7 +28,7 @@ public class ExpenseService {
     }
 
     public void updateExpense(int id, ExpenseBody body) {
-        Expense expense = getExpenseById(body.getExpenseId());
+        Expense expense = getExpenseById(id);
         Expense updatedExpense = updateExpenseData(expense, body);
         expenseRepository.update(id, updatedExpense);
     }

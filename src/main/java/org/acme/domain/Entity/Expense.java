@@ -3,6 +3,7 @@ package org.acme.domain.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "Expenses")
@@ -23,6 +24,7 @@ public class Expense {
     private String description;
 
     @Column(name = "Date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @Column(name = "CreatedAt", updatable = false)
