@@ -33,6 +33,15 @@ public class Expense {
     @Column(name = "UpdatedAt")
     private LocalDateTime updatedAt;
 
+    public Expense() {}
+
+    public Expense(Double amount, int categoryId, String description, LocalDate date) {
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.date = date;
+    }
+
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -42,15 +51,6 @@ public class Expense {
     @PreUpdate
     public void onUpdate() {
         this.updatedAt = LocalDateTime.now();
-    }
-
-    public Expense() {}
-
-    public Expense(Double amount, int categoryId, String description, LocalDate date) {
-        this.amount = amount;
-        this.categoryId = categoryId;
-        this.description = description;
-        this.date = date;
     }
 
     public Long getId() { return id; }
