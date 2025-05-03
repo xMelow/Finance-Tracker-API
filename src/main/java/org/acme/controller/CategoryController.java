@@ -24,14 +24,14 @@ public class CategoryController {
     }
 
     @GET
-    @Path("/{id:\\d+}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Category getCategoryById(@PathParam("id") int id) {
         return categoryService.getCategoryById(id);
     }
 
     @GET
-    @Path("/{name:[a-zA-Z]+}")
+    @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Category getCategoryByName(@PathParam("name") String name) {
         return categoryService.getCategoryByName(name);
