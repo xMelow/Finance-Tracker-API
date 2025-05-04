@@ -22,9 +22,9 @@ public class ExpenseService {
         return expenseRepository.findById(id);
     }
 
-    public void addExpense(ExpenseBody body) {
+    public Expense addExpense(ExpenseBody body) {
         Expense expense = new Expense(body.getAmount(), body.getCategoryId(), body.getDescription(), body.getDate());
-        expenseRepository.create(expense);    
+        return expenseRepository.create(expense);    
     }
 
     public void updateExpense(int id, ExpenseBody body) {

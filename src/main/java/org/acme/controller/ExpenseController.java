@@ -41,9 +41,8 @@ public class ExpenseController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addExpense(ExpenseBody body) {
-        expenseService.addExpense(body);
-        return Response.status(Response.Status.CREATED).build();
+    public Expense addExpense(ExpenseBody body) {
+        return expenseService.addExpense(body);
     }
 
     @PUT

@@ -24,8 +24,9 @@ public class ExpenseRepository {
     }
     
     @Transactional
-    public void create(Expense expense) {
+    public Expense create(Expense expense) {
         entityManager.persist(expense);
+        return expense;
     }
 
     @Transactional
