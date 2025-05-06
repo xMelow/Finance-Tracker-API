@@ -27,10 +27,11 @@ public class ExpenseService {
         return expenseRepository.create(expense);    
     }
 
-    public void updateExpense(int id, ExpenseBody body) {
+    public Expense updateExpense(int id, ExpenseBody body) {
         Expense expense = getExpenseById(id);
         Expense updatedExpense = updateExpenseData(expense, body);
         expenseRepository.update(id, updatedExpense);
+        return updatedExpense;
     }
 
     private Expense updateExpenseData(Expense expense, ExpenseBody body) {
@@ -42,7 +43,7 @@ public class ExpenseService {
     }
 
 
-    public void removeExpense(int id) {
-        expenseRepository.delete(id);
+    public Expense removeExpense(int id) {
+        return expenseRepository.delete(id);
     }
 }

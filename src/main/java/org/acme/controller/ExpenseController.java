@@ -49,14 +49,14 @@ public class ExpenseController {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void updateExpense(@PathParam("id") int id, ExpenseBody body) {
-        expenseService.updateExpense(id, body);
+    public Expense updateExpense(@PathParam("id") int id, ExpenseBody body) {
+        return expenseService.updateExpense(id, body);
     }
 
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void removeExpense(@PathParam("id") int id) {
-        expenseService.removeExpense(id);
+    public Expense removeExpense(@PathParam("id") int id) {
+        return expenseService.removeExpense(id);
     }
 }

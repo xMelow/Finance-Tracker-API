@@ -35,10 +35,11 @@ public class ExpenseRepository {
     }
 
     @Transactional
-    public void delete(int id) {
+    public Expense delete(int id) {
         Expense expense = findById(id);
         if (expense != null) {
             entityManager.remove(expense);
         }
+        return expense;
     }
 }
