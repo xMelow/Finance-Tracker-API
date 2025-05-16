@@ -1,7 +1,9 @@
 package org.acme.service;
 
-import org.acme.repository.TotalRepository;
+import java.util.List;
 
+import org.acme.repository.TotalRepository;
+import org.acme.DTO.MonthlySpending;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -11,7 +13,11 @@ public class TotalService {
     @Inject
     TotalRepository totalRepository;
 
-    public int getTotalSpending() {
+    public double getTotalSpending() {
         return totalRepository.getTotalSpending();
-    } 
+    }
+
+    public List<MonthlySpending> getTotalSpendingPerMonth() {
+        return totalRepository.getTotalSpendingPerMonth();
+    }
 }
