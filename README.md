@@ -1,62 +1,86 @@
-# Finance-Trakcer-API
+# 💸 Finance Tracker – Backend
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+A simple finance tracker built with Next.js as the frontend and Quarkus as the backend.
+This project helps me refine my skills, master new concepts, and keep learning by coding consistently.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+# 🧰 Tech Stack
 
-## Running the application in dev mode
+- Quarkus
+- Java 20+
+- MarineDB
 
-You can run your application in dev mode that enables live coding using:
+# ✅ Functionality
 
-```shell script
+- Full CRUD opertations for expenses
+- Retrieve expense categories
+- Calculate totals
+    - Total spending
+    - Total spending per month
+
+# 🔧 Setup
+
+Start the Quarkus development server:
+
+```bash
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+or (if you have Quarkus cli installed) 
+```bash 
+quarkus dev
+```
+Ensure your database is running and accessible
 
-## Packaging and running the application
+# 🗃️ Database script
 
-The application can be packaged using:
+```sql
+-- Create Database
+CREATE DATABASE IF NOT EXISTS Finance;
 
-```shell script
-./mvnw package
+USE Finance;
+
+-- Create tables
+CREATE TABLE IF NOT EXISTS Categories(
+	CategoryId INT PRIMARY KEY AUTO_INCREMENT,
+	Name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Expenses(
+	ExpenseId INT PRIMARY KEY AUTO_INCREMENT,
+	Amount DECIMAL(10, 2),
+	CategoryId INT,
+	Description VARCHAR(255),
+	Date DATE
+	CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (CategoryId) REFERENCES Categories(CategoryId)
+);
+
+-- Add data
+INSERT IGNORE INTO Categories (Name) VALUES
+	("Food"),
+	("Transport"),
+	("Rent"),
+	("Sport"),
+	("Going out"),
+	("Cloths"),
+	("Other");
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+# 📁 Environment Variables
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+Add your database and CORS settings in `src/main/resources/application.properties`:
 
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
 ```
+quarkus.datasource.db-kind=mariadb
+quarkus.datasource.username=your_username
+quarkus.datasource.password=your_password
+quarkus.datasource.jdbc.url=jdbc:mariadb://localhost:3306/Finance
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+quarkus.hibernate-orm.database.generation=none
 
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
+# CORS configuration
+quarkus.http.cors=true
+quarkus.http.cors.methods=GET,PUT,POST,DELETE,OPTIONS
+quarkus.http.cors.headers=accept,authorization,content-type,x-requested-with
 ```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/Finance-Trakcer-API-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
