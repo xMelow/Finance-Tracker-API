@@ -3,9 +3,15 @@ package org.acme.repository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
-
+import jakarta.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
+
 
 import org.acme.domain.entity.*;
 
@@ -42,4 +48,34 @@ public class ExpenseRepository {
         }
         return expense;
     }
+
+   public List<Expense> findFilteredExpenses(Integer categoryId, Double minAmount, Double maxAmount, String search) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
+        Root<Expense> expense = cq.from(Expense.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (categoryId != null) {
+            predicates.add(cb.equal(expense.get("categoryId"), categoryId));
+        }
+
+        if (minAmount != null && minAmount > 0) {
+            predicates.add(cb.ge(expense.get("amount"), minAmount));
+        }
+
+        if (maxAmount != null && maxAmount > 0) {
+            predicates.add(cb.le(expense.get("amount"), maxAmount));
+        }
+
+        if (search != null && !search.isBlank()) {
+            predicates.add(cb.like(cb.lower(expense.get("description")), "%" + search.toLowerCase() + "%"));
+        }
+
+        cq.where(cb.and(predicates.toArray(new Predicate[0])));
+        cq.orderBy(cb.desc(expense.get("date")));
+
+        TypedQuery<Expense> query = entityManager.createQuery(cq);
+        return query.getResultList();
+    }
+
 }

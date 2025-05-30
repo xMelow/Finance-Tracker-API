@@ -16,6 +16,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 
 @Path("/expenses")
 public class ExpenseController {
@@ -23,11 +24,15 @@ public class ExpenseController {
     @Inject
     ExpenseService expenseService;
 
-    // add parameter filters
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Expense> getAllExpenses() {
-        return expenseService.getAllExpenses();
+    public List<Expense> getAllExpenses(
+        @QueryParam("category") Integer categoryId,
+        @QueryParam("minAmount") Double minAmount,
+        @QueryParam("maxAmount") Double maxAmount,
+        @QueryParam("description") String description
+    ) {
+        return expenseService.getFilteredExpenses(categoryId, minAmount, maxAmount, description);
     }
 
     @GET

@@ -12,7 +12,7 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ExpenseId")
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private Double amount;
@@ -53,7 +53,7 @@ public class Expense {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
+    public Integer getId() { return id; }
 
     public Double getAmount() { return amount; }
     public void setAmount(Double amount) { this.amount = amount; }
