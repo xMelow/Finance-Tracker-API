@@ -49,21 +49,21 @@ public class ExpenseRepository {
         return expense;
     }
 
-   public List<Expense> findFilteredExpenses(String category, Double minAmount, Double maxAmount, String search) {
+   public List<Expense> findFilteredExpenses(Integer categoryId, Double minAmount, Double maxAmount, String search) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Expense> cq = cb.createQuery(Expense.class);
         Root<Expense> expense = cq.from(Expense.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        if (category != null && !category.isBlank()) {
-            predicates.add(cb.equal(expense.get("category").get("name"), category));
+        if (categoryId != null) {
+            predicates.add(cb.equal(expense.get("categoryId"), categoryId));
         }
 
-        if (minAmount != null) {
+        if (minAmount != null && minAmount > 0) {
             predicates.add(cb.ge(expense.get("amount"), minAmount));
         }
 
-        if (maxAmount != null) {
+        if (maxAmount != null && maxAmount > 0) {
             predicates.add(cb.le(expense.get("amount"), maxAmount));
         }
 

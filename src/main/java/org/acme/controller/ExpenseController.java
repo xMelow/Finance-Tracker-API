@@ -27,12 +27,12 @@ public class ExpenseController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Expense> getAllExpenses(
-        @QueryParam("category") String category,
+        @QueryParam("category") Integer categoryId,
         @QueryParam("minAmount") Double minAmount,
         @QueryParam("maxAmount") Double maxAmount,
         @QueryParam("description") String description
     ) {
-        return expenseService.getFilteredExpenses(category, minAmount, maxAmount, description);
+        return expenseService.getFilteredExpenses(categoryId, minAmount, maxAmount, description);
     }
 
     @GET
