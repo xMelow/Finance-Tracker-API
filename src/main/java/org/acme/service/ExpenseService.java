@@ -18,6 +18,10 @@ public class ExpenseService {
         return expenseRepository.getAll();
     }
 
+    public List<Expense> getFilteredExpenses(String category, double minAmount, double maxAmount, String description) {
+        return expenseRepository.findFilteredExpenses(category, minAmount, maxAmount, description);
+    }
+
     public Expense getExpenseById(int id) {
         return expenseRepository.findById(id);
     }
