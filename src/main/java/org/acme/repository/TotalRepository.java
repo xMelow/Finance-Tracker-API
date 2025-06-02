@@ -30,10 +30,7 @@ public class TotalRepository {
     }
 
    public List<CategorySpending> getTotalSpendingPerCategory() {
-
-        List<Object[]> results = entityManager.createQuery(
-            "SELECT c, SUM(e.amount) FROM Expense e JOIN Category c ON e.categoryId = c.id GROUP BY c", Object[].class
-        ).getResultList();
+        List<Object[]> results = entityManager.createQuery("SELECT c, SUM(e.amount) FROM Expense e JOIN Category c ON e.categoryId = c.id GROUP BY c", Object[].class).getResultList();
 
         return results.stream()
             .map(row -> new CategorySpending(
@@ -42,5 +39,4 @@ public class TotalRepository {
             ))
             .collect(Collectors.toList());
     }
-
 }
