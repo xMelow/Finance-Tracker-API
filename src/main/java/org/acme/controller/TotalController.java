@@ -3,6 +3,7 @@ package org.acme.controller;
 import java.util.List;
 import java.util.Map;
 import org.acme.service.TotalService;
+import org.acme.DTO.CategorySpending;
 import org.acme.DTO.MonthlySpending;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
@@ -29,5 +30,12 @@ public class TotalController {
     @Produces(MediaType.APPLICATION_JSON)
     public List<MonthlySpending> getTotalSpendingPerMonth() {
         return totalService.getTotalSpendingPerMonth();
+    }
+
+    @GET
+    @Path("/category")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CategorySpending> getTotalSpendingPerCategory() {
+        return totalService.getTotalSpendingPerCategory();
     }
 }
