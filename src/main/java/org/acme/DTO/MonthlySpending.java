@@ -1,16 +1,22 @@
 package org.acme.DTO;
 
 public class MonthlySpending {
-    private int month;
+    private String month;
+    private int monthNumber;
     private double total;
 
-    public MonthlySpending(int month, double total) {
+    public MonthlySpending(String month, int monthNumber, double total) {
         this.month = month;
+        this.monthNumber = monthNumber;
         this.total = total;
     }
 
-    public int getMonth() {
+    public String getMonth() {
         return this.month;
+    }
+
+    public int getMonthNumber() {
+        return this.monthNumber;
     }
 
     public double getTotal() {

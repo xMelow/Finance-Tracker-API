@@ -1,6 +1,9 @@
 package org.acme.repository;
 
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.acme.DTO.CategorySpending;
@@ -22,12 +25,20 @@ public class TotalRepository {
     }
 
     public List<MonthlySpending> getTotalSpendingPerMonth() {
-        List<Object[]> results = entityManager.createQuery("SELECT MONTH(e.date), SUM(e.amount) FROM Expense e GROUP BY MONTH(e.date)", Object[].class).getResultList();
+        List<Object[]> results = entityManager.createQuery(
+            "SELECT MONTH(e.date), SUM(e.amount) FROM Expense e GROUP BY MONTH(e.date)", Object[].class)
+            .getResultList();
 
         return results.stream()
-            .map(row -> new MonthlySpending((Integer) row[0], row[1] != null ? ((Number) row[1]).intValue() : 0))
+            .map(row -> {
+                int monthNumber = ((Number) row[0]).intValue();
+                int totalAmount = row[1] != null ? ((Number) row[1]).intValue() : 0;
+                String month = Month.of(monthNumber).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+                return new MonthlySpending(month, monthNumber, totalAmount);
+            })
             .collect(Collectors.toList());
     }
+
 
    public List<CategorySpending> getTotalSpendingPerCategory() {
         List<Object[]> results = entityManager.createQuery("SELECT c, SUM(e.amount) FROM Expense e JOIN Category c ON e.categoryId = c.id GROUP BY c", Object[].class).getResultList();
